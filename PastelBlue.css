@@ -1,0 +1,85 @@
+
+.table-header
+{
+background-color: #50A6DA;
+font-family: Verdana;
+font-size: small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #FFFFFF;
+}
+
+
+.table-footer
+{
+background-color: #50A6DA;
+font-family: Verdana;
+font-size: small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #FFFFFF;
+}
+
+.table-detail
+{
+background-color: #FFFFFF;
+font-family: Verdana;
+font-size: 8;
+padding: 0px 0px 0px 0px;
+color: #000000;
+}
+
+
+.table-group-header-1
+{
+background-color: #EDEEF3;
+font-family: Verdana;
+font-size: small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #000000;
+}
+
+.table-group-footer-1
+{
+background-color: #C0C0C0;
+font-family: Verdana;
+font-size: x-small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #000080;
+}
+
+.special-header
+{
+font-family: Sans Serif;
+font-size: large;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #C0C0C0;
+}
+
+.crosstab-detail
+{
+background-color: #E6ECFF;
+font-family: Verdana;
+font-size: x-small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #000080;
+}
+
+.crosstab-header
+{
+background-color: #6078BF;
+font-family: Verdana;
+font-size: small;
+font-weight: bold;
+padding: 0px 0px 0px 0px;
+color: #FFFFFF;
+}
+
+.mydata{
+color: orange;
+number-format-category: Currency;
+}
