@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.2.3.v20131216-0430 Build &lt;4.2.3.v20131216-0430></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.2.3.v20131212-0430 Build &lt;4.2.3.v20131212-0430></property>
     <property name="units">in</property>
     <method name="beforeFactory"><![CDATA[importPackage( Packages.org.eclipse.birt.report.model.api );
 elementFactory = reportContext.getDesignHandle().getElementFactory()
@@ -212,7 +212,11 @@ window.searchTable = function() {
 
 window.searchColumns = function(resultSet) {
     var elem = document.getElementById("searchString");
-   	var searchTerm = elem.value;
+    if (document.getElementById("ignoreCase").checked == true)
+       	var searchTerm = new RegExp(elem.value, "i");
+    else
+       	var searchTerm = new RegExp(elem.value);
+
     var columnIndex = 1;
     var i = 0, rowidIndex = 0;
     var rowIds = new Array();
@@ -232,7 +236,7 @@ window.searchColumns = function(resultSet) {
 
     while (resultSet.next()) {
 		for (columnIndex = 0; columnIndex < columns.length; columnIndex++) {
-			if (resultSet.getValue(columnIndex+1).indexOf(searchTerm) != -1) {
+			if (resultSet.getValue(columnIndex+1).search(searchTerm) != -1) {
 				//alert("Found in: " + resultSet.getValue(columnIndex+1));
 				rowIds[i] = resultSet.getValue(rowidIndex+1);
 				i++;
@@ -636,7 +640,7 @@ and YEAR(CLASSICMODELS.ORDERS.ORDERDATE) < 2015
                         <property name="rowSpan">1</property>
                         <text id="286">
                             <property name="contentType">html</property>
-                            <text-property name="content"><![CDATA[ Search all columns: <input type="text" id="searchString"><input type="submit" value="Search" onclick='javascript:searchTable()'><br>
+                            <text-property name="content"><![CDATA[ Search all columns: <input type="text" id="searchString"><br><input type="checkbox" id="ignoreCase" checked="true"> Ignore case<input type="submit" value="Search" onclick='javascript:searchTable()'>
 ]]></text-property>
                         </text>
                     </cell>
