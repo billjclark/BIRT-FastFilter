@@ -1,17 +1,480 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.2.3.v20131216-0430 Build &lt;4.2.3.v20131216-0430></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.2.3.v20131212-0430 Build &lt;4.2.3.v20131212-0430></property>
     <property name="units">in</property>
+    <method name="clientInitialize"><![CDATA[head.js ("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css",null);]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="layoutPreference">auto layout</property>
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
-    <list-property name="libraries">
-        <structure>
-            <property name="fileName">/ThemesReportItems3.rptlibrary</property>
-            <property name="namespace">ThemesReportItems3</property>
-        </structure>
-    </list-property>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Classic Models Data Source" id="12">
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">org.eclipse.birt.report.data.oda.sampledb.Driver</property>
+            <property name="odaURL">jdbc:classicmodels:sampledb</property>
+            <property name="odaUser">ClassicModels</property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Classic Models Data Set" id="13">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">PRODUCTLINE</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">PRODUCTLINE</text-property>
+                    <text-property name="heading">PRODUCTLINE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">TOTALREVENUE</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">TOTALREVENUE</text-property>
+                    <text-property name="heading">TOTALREVENUE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">REVENUEYEAR</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">REVENUEYEAR</text-property>
+                    <text-property name="heading">REVENUEYEAR</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">PRODUCTLINE</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">TOTALREVENUE</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">REVENUEYEAR</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Classic Models Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">PRODUCTLINE</property>
+                    <property name="nativeName">PRODUCTLINE</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">TOTALREVENUE</property>
+                    <property name="nativeName">TOTALREVENUE</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">REVENUEYEAR</property>
+                    <property name="nativeName">REVENUEYEAR</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[SELECT PRODUCTLINE,
+        SUM( PRICEEACH*QUANTITYORDERED ) AS "TOTALREVENUE",
+        YEAR( CLASSICMODELS.ORDERS.ORDERDATE) AS "REVENUEYEAR"
+FROM   CLASSICMODELS.ORDERDETAILS, CLASSICMODELS.PRODUCTS, CLASSICMODELS.ORDERS
+WHERE  CLASSICMODELS.ORDERDETAILS.PRODUCTCODE = 
+CLASSICMODELS.PRODUCTS.PRODUCTCODE
+and CLASSICMODELS.ORDERDETAILS.ORDERNUMBER = 
+CLASSICMODELS.ORDERS.ORDERNUMBER
+and YEAR(CLASSICMODELS.ORDERS.ORDERDATE) < 2013
+GROUP BY CLASSICMODELS.PRODUCTS.PRODUCTLINE, YEAR(CLASSICMODELS.ORDERS.ORDERDATE)
+]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>PRODUCTLINE</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>50</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>PRODUCTLINE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>PRODUCTLINE</design:label>
+            <design:formattingHints>
+              <design:displaySize>50</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>TOTALREVENUE</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>8</design:nativeDataTypeCode>
+            <design:precision>15</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>TOTALREVENUE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>TOTALREVENUE</design:label>
+            <design:formattingHints>
+              <design:displaySize>22</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>REVENUEYEAR</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>REVENUEYEAR</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>REVENUEYEAR</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Orders Data Set" id="119">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ORDERNUMBER</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">ORDERNUMBER</text-property>
+                    <text-property name="heading">ORDERNUMBER</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ORDERDATE</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">ORDERDATE</text-property>
+                    <text-property name="heading">ORDERDATE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">REQUIREDDATE</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">REQUIREDDATE</text-property>
+                    <text-property name="heading">REQUIREDDATE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">SHIPPEDDATE</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">SHIPPEDDATE</text-property>
+                    <text-property name="heading">SHIPPEDDATE</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">STATUS</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">STATUS</text-property>
+                    <text-property name="heading">STATUS</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">COMMENTS</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">COMMENTS</text-property>
+                    <text-property name="heading">COMMENTS</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">CUSTOMERNUMBER</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">CUSTOMERNUMBER</text-property>
+                    <text-property name="heading">CUSTOMERNUMBER</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters"/>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ORDERNUMBER</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">ORDERDATE</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">REQUIREDDATE</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">SHIPPEDDATE</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">STATUS</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">COMMENTS</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">CUSTOMERNUMBER</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Classic Models Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ORDERNUMBER</property>
+                    <property name="nativeName">ORDERNUMBER</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">ORDERDATE</property>
+                    <property name="nativeName">ORDERDATE</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">REQUIREDDATE</property>
+                    <property name="nativeName">REQUIREDDATE</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">SHIPPEDDATE</property>
+                    <property name="nativeName">SHIPPEDDATE</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">STATUS</property>
+                    <property name="nativeName">STATUS</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">COMMENTS</property>
+                    <property name="nativeName">COMMENTS</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">CUSTOMERNUMBER</property>
+                    <property name="nativeName">CUSTOMERNUMBER</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select *
+from orders
+where status <> 'Shipped']]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ORDERNUMBER</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ORDERNUMBER</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ORDERNUMBER</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>ORDERDATE</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>ORDERDATE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>ORDERDATE</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>REQUIREDDATE</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>REQUIREDDATE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>REQUIREDDATE</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>SHIPPEDDATE</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>SHIPPEDDATE</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>SHIPPEDDATE</design:label>
+            <design:formattingHints>
+              <design:displaySize>10</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>STATUS</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>15</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>STATUS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>STATUS</design:label>
+            <design:formattingHints>
+              <design:displaySize>15</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>COMMENTS</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>32700</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>COMMENTS</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>COMMENTS</design:label>
+            <design:formattingHints>
+              <design:displaySize>32700</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>CUSTOMERNUMBER</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>CUSTOMERNUMBER</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>CUSTOMERNUMBER</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
     <styles>
         <style name="report" id="4">
             <property name="fontFamily">sans-serif</property>
@@ -49,29 +512,979 @@
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="orientation">landscape</property>
+            <property name="leftMargin">1in</property>
+            <property name="rightMargin">1in</property>
         </simple-master-page>
     </page-setup>
     <body>
+        <label id="47">
+            <property name="fontSize">36pt</property>
+            <text-property name="text">Using Font Graphics in Your Reports </text-property>
+        </label>
+        <text id="109">
+            <property name="fontWeight">bold</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Simple KPI's]]></text-property>
+        </text>
+        <table id="54">
+            <property name="dataSet">Classic Models Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">PRODUCTLINE</property>
+                    <text-property name="displayName">PRODUCTLINE</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PRODUCTLINE"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">TOTALREVENUE</property>
+                    <text-property name="displayName">TOTALREVENUE</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["TOTALREVENUE"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">REVENUEYEAR</property>
+                    <text-property name="displayName">REVENUEYEAR</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["REVENUEYEAR"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value" type="javascript">row["TOTALREVENUE"]</expression>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="73">
+                <property name="width">0.5in</property>
+            </column>
+            <column id="74">
+                <property name="width">0.5in</property>
+            </column>
+            <header>
+                <row id="80">
+                    <property name="backgroundColor">white</property>
+                    <cell id="81">
+                        <property name="verticalAlign">middle</property>
+                        <label id="57">
+                            <property name="fontFamily">"FontAwesome"</property>
+                            <property name="fontSize">36pt</property>
+                            <property name="color">#FF8000</property>
+                            <text-property name="text"></text-property>
+                        </label>
+                    </cell>
+                    <cell id="82">
+                        <label id="59">
+                            <property name="fontSize">12pt</property>
+                            <property name="fontWeight">normal</property>
+                            <text-property name="text">TOTALREVENUE</text-property>
+                        </label>
+                        <data id="76">
+                            <property name="fontSize">24pt</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">###0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="resultSetColumn">Aggregation</property>
+                        </data>
+                    </cell>
+                </row>
+            </header>
+        </table>
+        <grid id="86">
+            <property name="width">100%</property>
+            <column id="87"/>
+            <column id="88"/>
+            <column id="89"/>
+            <column id="90"/>
+            <column id="91"/>
+            <row id="110">
+                <property name="textAlign">center</property>
+                <cell id="111">
+                    <property name="colSpan">5</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <property name="verticalAlign">middle</property>
+                    <text id="117">
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[HTML Buttons]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="92">
+                <property name="textAlign">center</property>
+                <cell id="93">
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <property name="verticalAlign">middle</property>
+                    <extended-item extensionName="HTMLButton" name="Orders" id="83">
+                        <method name="clientScripts"><![CDATA[
+/**
+ * Occurs when mouse clicks.
+ * @param event
+ */
+
+this.onclick = function(event)
+{ alert("howdy");
+}
+]]></method>
+                        <expression name="text" type="constant"></expression>
+                        <property name="fontFamily">"FontAwesome"</property>
+                        <property name="fontSize">36pt</property>
+                        <property name="color">red</property>
+                        <property name="backgroundColor">white</property>
+                        <property name="textAlign">center</property>
+                        <property name="verticalAlign">middle</property>
+                        <property name="marginTop">5pt</property>
+                        <property name="marginBottom">5pt</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="marginRight">5pt</property>
+                        <property name="paddingTop">20pt</property>
+                        <property name="paddingBottom">20pt</property>
+                        <property name="width">1in</property>
+                    </extended-item>
+                </cell>
+                <cell id="94">
+                    <property name="verticalAlign">middle</property>
+                    <extended-item extensionName="HTMLButton" name="Orders1" id="85">
+                        <expression name="text" type="constant"></expression>
+                        <property name="fontFamily">"FontAwesome"</property>
+                        <property name="fontSize">36pt</property>
+                        <property name="color">silver</property>
+                        <property name="backgroundColor">white</property>
+                        <property name="textAlign">center</property>
+                        <property name="marginTop">5pt</property>
+                        <property name="marginBottom">5pt</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="marginRight">5pt</property>
+                        <property name="paddingTop">10pt</property>
+                        <property name="width">1in</property>
+                    </extended-item>
+                </cell>
+                <cell id="95">
+                    <property name="verticalAlign">middle</property>
+                    <extended-item extensionName="HTMLButton" name="Orders11" id="98">
+                        <expression name="text" type="constant"></expression>
+                        <property name="fontFamily">"FontAwesome"</property>
+                        <property name="fontSize">36pt</property>
+                        <property name="color">blue</property>
+                        <property name="backgroundColor">white</property>
+                        <property name="textAlign">center</property>
+                        <property name="marginTop">5pt</property>
+                        <property name="marginBottom">5pt</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="marginRight">5pt</property>
+                        <property name="paddingTop">10pt</property>
+                        <property name="width">1in</property>
+                    </extended-item>
+                </cell>
+                <cell id="96">
+                    <property name="verticalAlign">middle</property>
+                    <extended-item extensionName="HTMLButton" name="Orders111" id="107">
+                        <expression name="text" type="constant"></expression>
+                        <property name="fontFamily">"FontAwesome"</property>
+                        <property name="fontSize">36pt</property>
+                        <property name="color">olive</property>
+                        <property name="backgroundColor">white</property>
+                        <property name="textAlign">center</property>
+                        <property name="marginTop">5pt</property>
+                        <property name="marginBottom">5pt</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="marginRight">5pt</property>
+                        <property name="paddingTop">10pt</property>
+                        <property name="width">1in</property>
+                    </extended-item>
+                </cell>
+                <cell id="97"/>
+            </row>
+            <row id="99">
+                <property name="textAlign">center</property>
+                <property name="height">0.3in</property>
+                <cell id="100">
+                    <label id="105">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">gray</property>
+                        <text-property name="text">Help</text-property>
+                    </label>
+                </cell>
+                <cell id="101">
+                    <label id="106">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">gray</property>
+                        <text-property name="text">Settings</text-property>
+                    </label>
+                </cell>
+                <cell id="102">
+                    <label id="108">
+                        <property name="fontWeight">bold</property>
+                        <property name="color">gray</property>
+                        <text-property name="text">Like</text-property>
+                    </label>
+                </cell>
+                <cell id="103"/>
+                <cell id="104"/>
+            </row>
+        </grid>
+        <text id="118">
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">left</property>
+            <property name="contentType">auto</property>
+            <text-property name="content"><![CDATA[Columns in a table]]></text-property>
+        </text>
+        <table id="14">
+            <property name="borderBottomStyle">none</property>
+            <property name="borderLeftStyle">none</property>
+            <property name="borderRightStyle">none</property>
+            <property name="borderTopStyle">none</property>
+            <property name="dataSet">Classic Models Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">PRODUCTLINE</property>
+                    <text-property name="displayName">PRODUCTLINE</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["PRODUCTLINE"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">TOTALREVENUE</property>
+                    <text-property name="displayName">TOTALREVENUE</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["TOTALREVENUE"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">REVENUEYEAR</property>
+                    <text-property name="displayName">REVENUEYEAR</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["REVENUEYEAR"]</expression>
+                    <property name="dataType">integer</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <expression name="expression" type="javascript">if (dataSetRow["REVENUEYEAR"] == 2011) {&#13;
+'';&#13;
+} else {&#13;
+'';&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_1</property>
+                    <expression name="expression" type="javascript">if (dataSetRow["TOTALREVENUE"]&lt;=100000) {&#13;
+'';&#13;
+} else if (dataSetRow["TOTALREVENUE"]&lt;=150000) {&#13;
+'';&#13;
+} else if (dataSetRow["TOTALREVENUE"]&lt;=250000)  {&#13;
+'';&#13;
+} else if (dataSetRow["TOTALREVENUE"]&lt;=500000)  {&#13;
+'';&#13;
+} else {&#13;
+'';&#13;
+}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="33"/>
+            <column id="51"/>
+            <column id="34"/>
+            <column id="43"/>
+            <column id="35"/>
+            <header>
+                <row id="15">
+                    <property name="backgroundColor">silver</property>
+                    <property name="borderBottomStyle">none</property>
+                    <property name="borderLeftStyle">none</property>
+                    <property name="borderRightStyle">none</property>
+                    <property name="borderTopStyle">none</property>
+                    <cell id="16">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="17">
+                            <text-property name="text">PRODUCT LINE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="48">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="53">
+                            <text-property name="text">Status</text-property>
+                        </label>
+                    </cell>
+                    <cell id="18">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="19">
+                            <text-property name="text">TOTAL REVENUE</text-property>
+                        </label>
+                    </cell>
+                    <cell id="40">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="46">
+                            <text-property name="text">Gender</text-property>
+                        </label>
+                    </cell>
+                    <cell id="20">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="21">
+                            <text-property name="text">YEAR</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="22">
+                    <cell id="23">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="24">
+                            <property name="resultSetColumn">PRODUCTLINE</property>
+                        </data>
+                    </cell>
+                    <cell id="49">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="52">
+                            <property name="fontFamily">"FontAwesome"</property>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">Column Binding_1</property>
+                        </data>
+                    </cell>
+                    <cell id="25">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="26">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00{RoundingMode=HALF_UP}</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">TOTALREVENUE</property>
+                        </data>
+                    </cell>
+                    <cell id="41">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="45">
+                            <property name="fontFamily">"FontAwesome"</property>
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">Column Binding</property>
+                        </data>
+                    </cell>
+                    <cell id="27">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="28">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">REVENUEYEAR</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+        <extended-item extensionName="Chart" id="84">
+            <xml-property name="xmlRepresentation"><![CDATA[<ActuateChart version="2.6.1">
+ <ChartWithAxes version="2.6.1" type="Bar Chart" subType="Side-by-side" orientation="1">
+  <block>
+   <children _type="TitleBlock">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <label>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </label>
+   </children>
+   <children _type="Plot">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <clientArea>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </clientArea>
+   </children>
+   <children _type="Legend" orientation="0" position="1">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <clientArea>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </clientArea>
+    <separator>
+     <color _nil="1"/>
+    </separator>
+    <title>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </title>
+   </children>
+   <bounds _body="0.0,0.0,644.25,322.125"/>
+   <outline>
+    <color _nil="1"/>
+   </outline>
+  </block>
+  <extendedProperties name="enable.area.alt" value="false"/>
+  <extendedProperties name="enable.drill.category" value="true"/>
+  <extendedProperties name="enable.drill.series" value="true"/>
+  <extendedProperties name="jschart.series.shadow" value="false"/>
+  <extendedProperties name="jschart.client.script" value="/**&#13;&#10; * Called before data point instance is rendered.&#13;&#10; *&#13;&#10; * @param point&#13;&#10; *            data point instance&#13;&#10; * @param  pointOptions&#13;&#10; *             data point options&#13;&#10; * @param  chart&#13;&#10; *             chart instance&#13;&#10; * @param  seriesIndex&#13;&#10; *             series index&#13;&#10; * @param  pointIndex&#13;&#10; *             data point index&#13;&#10; */&#13;&#10;beforeDrawDataPoint: function(point, pointOptions, chart, seriesIndex, pointIndex)&#13;&#10;{&#13;&#10;&#13;&#10;    pointOptions.dataLabels = {&#13;&#10;        enabled: true,&#13;&#10;        useHTML: true,&#13;&#10;&#13;&#10;                            formatter: function() {&#13;&#10;                    &#13;&#10;                    returnStr = &#039;&lt;div style=&quot;text-align:center&quot;&gt;&#039;;&#13;&#10;                    &#13;&#10;    switch(this.x) {&#13;&#10;    case &#039;Cassic Cars&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-ban&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;Motorcycles&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-folder-open&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;Planes&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-car&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;On Hold&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-wrench&quot;&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;  &#13;&#10;    default:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-star&quot;&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;}&#13;&#10;                    returnStr = returnStr + &#039;&lt;br&gt;$&#039; + this.y + &#039; &lt;/div&gt;&#039;;&#13;&#10;                    return returnStr;&#13;&#10;                    } &#13;&#10;&#13;&#10;} &#13;&#10;    &#13;&#10;}"/>
+  <sampleData>
+   <baseSampleData dataSetRepresentation="A, B, C"/>
+   <orthogonalSampleData dataSetRepresentation="5,4,12" seriesDefinitionIndex="0"/>
+  </sampleData>
+  <emptyMessage>
+   <caption value="This chart contains no data."/>
+   <background _body=",64,127,127,127"/>
+   <outline>
+    <color _body=",128,127,127,127"/>
+   </outline>
+  </emptyMessage>
+  <axes>
+   <title>
+    <background _nil="1"/>
+    <outline>
+     <color _nil="1"/>
+    </outline>
+   </title>
+   <associatedAxes primaryAxis="true">
+    <title>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </title>
+    <seriesDefinitions>
+     <query definition="row[&quot;REVENUEYEAR&quot;]">
+      <grouping groupType="0"/>
+     </query>
+     <series _type="BarSeries" seriesIdentifier="Series 1" stacked="false" riser="0">
+      <label>
+       <background _nil="1"/>
+       <outline>
+        <color _nil="1"/>
+       </outline>
+      </label>
+      <dataDefinition definition="row[&quot;TOTALREVENUE&quot;]">
+       <grouping/>
+      </dataDefinition>
+      <triggers condition="6">
+       <action type="1">
+        <value _type="TooltipValue" text="" delay="200"/>
+       </action>
+      </triggers>
+      <curveFitting _nil="1"/>
+     </series>
+    </seriesDefinitions>
+    <lineAttributes>
+     <color _nil="1"/>
+    </lineAttributes>
+    <label>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </label>
+    <majorGrid>
+     <lineAttributes>
+      <color _nil="1"/>
+     </lineAttributes>
+     <tickAttributes>
+      <color _nil="1"/>
+     </tickAttributes>
+    </majorGrid>
+    <minorGrid>
+     <lineAttributes>
+      <color _nil="1"/>
+     </lineAttributes>
+     <tickAttributes>
+      <color _nil="1"/>
+     </tickAttributes>
+    </minorGrid>
+    <origin>
+     <value _nil="1"/>
+    </origin>
+   </associatedAxes>
+   <seriesDefinitions>
+    <query definition=""/>
+    <series seriesIdentifier="">
+     <label>
+      <background _nil="1"/>
+      <outline>
+       <color _nil="1"/>
+      </outline>
+     </label>
+     <dataDefinition definition="row[&quot;PRODUCTLINE&quot;]"/>
+     <curveFitting _nil="1"/>
+    </series>
+    <grouping enabled="true"/>
+   </seriesDefinitions>
+   <lineAttributes>
+    <color _nil="1"/>
+   </lineAttributes>
+   <label>
+    <caption>
+     <font rotation="-47.0"/>
+    </caption>
+    <background _nil="1"/>
+    <outline>
+     <color _nil="1"/>
+    </outline>
+   </label>
+   <majorGrid>
+    <lineAttributes>
+     <color _nil="1"/>
+    </lineAttributes>
+    <tickAttributes>
+     <color _nil="1"/>
+    </tickAttributes>
+   </majorGrid>
+   <minorGrid>
+    <lineAttributes>
+     <color _nil="1"/>
+    </lineAttributes>
+    <tickAttributes>
+     <color _nil="1"/>
+    </tickAttributes>
+   </minorGrid>
+   <origin>
+    <value _nil="1"/>
+   </origin>
+  </axes>
+  <rotation>
+   <angles/>
+  </rotation>
+ </ChartWithAxes>
+</ActuateChart>
+]]></xml-property>
+            <property name="outputFormat">JS</property>
+            <property name="inheritColumns">true</property>
+            <property name="pageBreakBefore">always</property>
+            <property name="height">322.125pt</property>
+            <property name="width">644.25pt</property>
+            <property name="dataSet">Classic Models Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">PRODUCTLINE</property>
+                    <expression name="expression" type="javascript">dataSetRow["PRODUCTLINE"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">TOTALREVENUE</property>
+                    <expression name="expression" type="javascript">dataSetRow["TOTALREVENUE"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">REVENUEYEAR</property>
+                    <expression name="expression" type="javascript">dataSetRow["REVENUEYEAR"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+        </extended-item>
+        <extended-item extensionName="Chart" id="10">
+            <xml-property name="xmlRepresentation"><![CDATA[<ActuateChart version="2.6.1">
+ <ChartWithAxes version="2.6.1" type="Bar Chart" subType="Side-by-side">
+  <block>
+   <children _type="TitleBlock" visible="false">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <label>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </label>
+   </children>
+   <children _type="Plot">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <clientArea>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </clientArea>
+   </children>
+   <children _type="Legend" visible="false">
+    <outline>
+     <color _nil="1"/>
+    </outline>
+    <clientArea>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </clientArea>
+    <separator>
+     <color _nil="1"/>
+    </separator>
+    <title>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </title>
+   </children>
+   <bounds _body="0.0,0.0,572.25,286.125"/>
+   <outline>
+    <color _nil="1"/>
+   </outline>
+  </block>
+  <extendedProperties name="enable.area.alt" value="false"/>
+  <extendedProperties name="enable.drill.category" value="true"/>
+  <extendedProperties name="enable.drill.series" value="true"/>
+  <extendedProperties name="jschart.glass.style" value="false"/>
+  <extendedProperties name="jschart.series.shadow" value="false"/>
+  <extendedProperties name="jschart.animation" value="false"/>
+  <extendedProperties name="jschart.client.script" value="beforeDrawDataPoint: function(point, pointOptions, chart, seriesIndex, pointIndex)&#13;&#10;{&#13;&#10;&#13;&#10;    pointOptions.dataLabels = {&#13;&#10;        enabled: true,&#13;&#10;        useHTML: true,&#13;&#10;&#13;&#10;                            formatter: function() {&#13;&#10;                    &#13;&#10;                    returnStr = &#039;&lt;div style=&quot;text-align:center&quot;&gt;&#039;;&#13;&#10;                    &#13;&#10;    switch(this.x) {&#13;&#10;    case &#039;Cancelled&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-ban&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;Disputed&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-folder-open&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;In Process&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-car&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;&#13;&#10;    case &#039;On Hold&#039;:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-wrench&quot;&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;        break;  &#13;&#10;    default:&#13;&#10;        returnStr = returnStr + &#039;&lt;i class=&quot;fa fa-star&quot;&quot;&gt;&lt;/i&gt;&#039;;&#13;&#10;}&#13;&#10;                    returnStr = returnStr + &#039;&lt;br&gt;&#039; + this.y + &#039; %&lt;/div&gt;&#039;;&#13;&#10;                    return returnStr;&#13;&#10;                    } &#13;&#10;&#13;&#10;} &#13;&#10;    &#13;&#10;}"/>
+  <sampleData>
+   <baseSampleData dataSetRepresentation="A, B, C"/>
+   <orthogonalSampleData dataSetRepresentation="5,4,12" seriesDefinitionIndex="0"/>
+  </sampleData>
+  <emptyMessage>
+   <caption value="This chart contains no data."/>
+   <background _body=",64,127,127,127"/>
+   <outline>
+    <color _body=",128,127,127,127"/>
+   </outline>
+  </emptyMessage>
+  <axes>
+   <title>
+    <background _nil="1"/>
+    <outline>
+     <color _nil="1"/>
+    </outline>
+   </title>
+   <associatedAxes primaryAxis="true">
+    <title>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </title>
+    <seriesDefinitions>
+     <query definition=""/>
+     <seriesPalette>
+      <entries _body=",255,7,67,167"/>
+      <entries _body=",255,242,88,106"/>
+      <entries _body=",255,232,172,57"/>
+      <entries _body=",255,128,255,128"/>
+      <entries _body=",255,64,128,128"/>
+      <entries _body=",255,128,128,192"/>
+      <entries _body=",255,170,85,85"/>
+      <entries _body=",255,128,128,0"/>
+      <entries _body=",255,192,192,192"/>
+      <entries _body=",255,255,255,128"/>
+      <entries _body=",255,128,192,128"/>
+      <entries _body=",255,7,146,94"/>
+      <entries _body=",255,0,128,255"/>
+      <entries _body=",255,255,128,192"/>
+      <entries _body=",255,0,255,255"/>
+      <entries _body=",255,255,128,128"/>
+      <entries _body=",255,0,128,192"/>
+      <entries _body=",255,128,128,192"/>
+      <entries _body=",255,255,0,255"/>
+      <entries _body=",255,128,64,64"/>
+      <entries _body=",255,255,128,64"/>
+      <entries _body=",255,80,240,120"/>
+      <entries _body=",255,0,64,128"/>
+      <entries _body=",255,128,0,64"/>
+      <entries _body=",255,255,0,128"/>
+      <entries _body=",255,128,128,64"/>
+      <entries _body=",255,128,128,128"/>
+      <entries _body=",255,255,128,255"/>
+      <entries _body=",255,0,64,0"/>
+      <entries _body=",255,0,0,0"/>
+      <entries _body=",255,255,255,255"/>
+      <entries _body=",255,255,128,0"/>
+     </seriesPalette>
+     <series _type="BarSeries" seriesIdentifier="Series 1" riser="0">
+      <label visible="true">
+       <caption>
+        <font name="Segoe UI" size="12.0" bold="true"/>
+       </caption>
+       <background _nil="1"/>
+       <outline>
+        <color _nil="1"/>
+       </outline>
+      </label>
+      <dataDefinition definition="row[&quot;STATUS&quot;]">
+       <grouping enabled="true" aggregateExpression="Count"/>
+      </dataDefinition>
+      <dataPoint suffix="">
+       <components type="3"/>
+      </dataPoint>
+      <triggers condition="6">
+       <action type="1">
+        <value _type="TooltipValue" text="" delay="200"/>
+       </action>
+      </triggers>
+      <curveFitting _nil="1"/>
+     </series>
+     <grouping _nil="1"/>
+    </seriesDefinitions>
+    <lineAttributes visible="false">
+     <color _body=",0,255,255,255"/>
+    </lineAttributes>
+    <label>
+     <caption>
+      <font name="Segoe UI"/>
+     </caption>
+     <background _nil="1"/>
+     <outline>
+      <color _nil="1"/>
+     </outline>
+    </label>
+    <majorGrid>
+     <lineAttributes visible="true">
+      <color _body=",255,226,226,226"/>
+     </lineAttributes>
+     <tickAttributes visible="false">
+      <color _nil="1"/>
+     </tickAttributes>
+    </majorGrid>
+    <minorGrid>
+     <lineAttributes visible="false">
+      <color _nil="1"/>
+     </lineAttributes>
+     <tickAttributes visible="false">
+      <color _nil="1"/>
+     </tickAttributes>
+    </minorGrid>
+    <origin>
+     <value _nil="1"/>
+    </origin>
+   </associatedAxes>
+   <seriesDefinitions>
+    <query definition=""/>
+    <seriesPalette>
+     <entries _body=",255,7,67,167"/>
+     <entries _body=",255,242,88,106"/>
+     <entries _body=",255,232,172,57"/>
+     <entries _body=",255,128,255,128"/>
+     <entries _body=",255,64,128,128"/>
+     <entries _body=",255,128,128,192"/>
+     <entries _body=",255,170,85,85"/>
+     <entries _body=",255,128,128,0"/>
+     <entries _body=",255,192,192,192"/>
+     <entries _body=",255,255,255,128"/>
+     <entries _body=",255,128,192,128"/>
+     <entries _body=",255,7,146,94"/>
+     <entries _body=",255,0,128,255"/>
+     <entries _body=",255,255,128,192"/>
+     <entries _body=",255,0,255,255"/>
+     <entries _body=",255,255,128,128"/>
+     <entries _body=",255,0,128,192"/>
+     <entries _body=",255,128,128,192"/>
+     <entries _body=",255,255,0,255"/>
+     <entries _body=",255,128,64,64"/>
+     <entries _body=",255,255,128,64"/>
+     <entries _body=",255,80,240,120"/>
+     <entries _body=",255,0,64,128"/>
+     <entries _body=",255,128,0,64"/>
+     <entries _body=",255,255,0,128"/>
+     <entries _body=",255,128,128,64"/>
+     <entries _body=",255,128,128,128"/>
+     <entries _body=",255,255,128,255"/>
+     <entries _body=",255,0,64,0"/>
+     <entries _body=",255,0,0,0"/>
+     <entries _body=",255,255,255,255"/>
+     <entries _body=",255,255,128,0"/>
+    </seriesPalette>
+    <series seriesIdentifier="">
+     <label>
+      <background _nil="1"/>
+      <outline>
+       <color _nil="1"/>
+      </outline>
+     </label>
+     <dataDefinition definition="row[&quot;STATUS&quot;]"/>
+     <curveFitting _nil="1"/>
+    </series>
+    <grouping enabled="true"/>
+   </seriesDefinitions>
+   <lineAttributes visible="true">
+    <color _body=",255,226,226,226"/>
+   </lineAttributes>
+   <label>
+    <caption>
+     <font name="Segoe UI"/>
+    </caption>
+    <background _nil="1"/>
+    <outline>
+     <color _nil="1"/>
+    </outline>
+   </label>
+   <majorGrid>
+    <lineAttributes visible="false">
+     <color _nil="1"/>
+    </lineAttributes>
+    <tickAttributes visible="false">
+     <color _nil="1"/>
+    </tickAttributes>
+   </majorGrid>
+   <minorGrid>
+    <lineAttributes visible="false">
+     <color _nil="1"/>
+    </lineAttributes>
+    <tickAttributes visible="false">
+     <color _nil="1"/>
+    </tickAttributes>
+   </minorGrid>
+   <origin>
+    <value _nil="1"/>
+   </origin>
+  </axes>
+  <rotation>
+   <angles/>
+  </rotation>
+ </ChartWithAxes>
+</ActuateChart>
+]]></xml-property>
+            <property name="outputFormat">JS</property>
+            <property name="inheritColumns">true</property>
+            <property name="height">286.125pt</property>
+            <property name="width">572.25pt</property>
+            <property name="dataSet">Orders Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ORDERNUMBER</property>
+                    <expression name="expression" type="javascript">dataSetRow["ORDERNUMBER"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">ORDERDATE</property>
+                    <expression name="expression" type="javascript">dataSetRow["ORDERDATE"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">REQUIREDDATE</property>
+                    <expression name="expression" type="javascript">dataSetRow["REQUIREDDATE"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">SHIPPEDDATE</property>
+                    <expression name="expression" type="javascript">dataSetRow["SHIPPEDDATE"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">STATUS</property>
+                    <expression name="expression" type="javascript">dataSetRow["STATUS"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">COMMENTS</property>
+                    <expression name="expression" type="javascript">dataSetRow["COMMENTS"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">CUSTOMERNUMBER</property>
+                    <expression name="expression" type="javascript">dataSetRow["CUSTOMERNUMBER"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+        </extended-item>
         <label id="7">
             <property name="fontFamily">"FontAwesome"</property>
             <property name="fontSize">12pt</property>
             <property name="paddingTop">10pt</property>
             <property name="paddingBottom">10pt</property>
-            <text-property name="text"></text-property>
+            <property name="pageBreakBefore">always</property>
+            <text-property name="text">                    </text-property>
         </label>
         <label id="9">
             <property name="fontFamily">"FontAwesome"</property>
             <property name="fontSize">18pt</property>
             <property name="paddingTop">10pt</property>
             <property name="paddingBottom">10pt</property>
-            <text-property name="text"></text-property>
+            <text-property name="text">                    </text-property>
         </label>
         <label id="8">
             <property name="fontFamily">"FontAwesome"</property>
             <property name="fontSize">36pt</property>
             <property name="paddingTop">10pt</property>
             <property name="paddingBottom">10pt</property>
-            <text-property name="text"></text-property>
+            <text-property name="text">                    </text-property>
         </label>
     </body>
 </report>
